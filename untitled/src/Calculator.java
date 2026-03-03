@@ -32,7 +32,7 @@ public class Calculator {
     }
 
     public static void main(String[] args) {
-
+        // Checking for gitscm polling
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
