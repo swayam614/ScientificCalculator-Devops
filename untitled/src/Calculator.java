@@ -33,6 +33,7 @@ public class Calculator {
 
     public static void main(String[] args) {
         // Checking for gitscm polling
+        // checking for pipleline
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
