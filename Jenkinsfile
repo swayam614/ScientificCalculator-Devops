@@ -41,7 +41,7 @@ pipeline {
 
         stage('Deploy with Ansible') {
             steps {
-                sh 'ansible-playbook -i ansible/hosts ansible/deploy.yml'
+                sh '/opt/homebrew/bin/ansible-playbook -i ansible/hosts ansible/deploy.yml'
             }
         }
     }
