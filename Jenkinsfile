@@ -38,5 +38,11 @@ pipeline {
                 sh '$DOCKER_PATH push $DOCKER_IMAGE:$DOCKER_TAG'
             }
         }
+
+        stage('Deploy with Ansible') {
+            steps {
+                sh 'ansible-playbook -i ansible/hosts ansible/deploy.yml'
+            }
+        }
     }
 }
