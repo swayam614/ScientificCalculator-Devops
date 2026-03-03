@@ -4,19 +4,14 @@ pipeline {
     environment {
         DOCKER_IMAGE = "swayam614/scientific-calculator"
         DOCKER_TAG = "latest"
+        DOCKER_PATH = "/usr/local/bin/docker"
     }
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
+                sh '$DOCKER_PATH build -t $DOCKER_IMAGE:$DOCKER_TAG .'
             }
         }
 
@@ -25,14 +20,14 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'DockerHubCred',
                                  usernameVariable: 'DOCKER_USER',
                                  passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'echo $DOCKER_PASS | $DOCKER_PATH login -u $DOCKER_USER --password-stdin'
                 }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                sh 'docker push $DOCKER_IMAGE:$DOCKER_TAG'
+                sh '$DOCKER_PATH push $DOCKER_IMAGE:$DOCKER_TAG'
             }
         }
     }
