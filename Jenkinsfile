@@ -5,9 +5,17 @@ pipeline {
         DOCKER_IMAGE = "swayam614/scientific-calculator"
         DOCKER_TAG = "latest"
         DOCKER_PATH = "/usr/local/bin/docker"
+        DOCKER_CONFIG = "${WORKSPACE}/.docker"
     }
 
     stages {
+
+        stage('Prepare Docker Config') {
+            steps {
+                sh 'mkdir -p $DOCKER_CONFIG'
+                sh 'echo "{\\"auths\\":{}}" > $DOCKER_CONFIG/config.json'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
