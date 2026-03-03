@@ -17,6 +17,12 @@ pipeline {
             }
         }
 
+        stage('Build and Test with Maven') {
+            steps {
+                sh '/opt/homebrew/bin/mvn clean package'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh '$DOCKER_PATH build -t $DOCKER_IMAGE:$DOCKER_TAG .'
