@@ -4,17 +4,16 @@
   become: false
 
   tasks:
-
     - name: Pull Docker Image
-      command: docker pull swayam614/scientific-calculator:latest
+      command: /usr/local/bin/docker pull swayam614/scientific-calculator:latest
 
     - name: Stop existing container if running
-      command: docker stop scientific-calculator
+      command: /usr/local/bin/docker stop scientific-calculator
       ignore_errors: yes
 
     - name: Remove old container
-      command: docker rm scientific-calculator
+      command: /usr/local/bin/docker rm scientific-calculator
       ignore_errors: yes
 
     - name: Run new container
-      command: docker run -dit --name scientific-calculator swayam614/scientific-calculator:latest
+      command: /usr/local/bin/docker run -dit --name scientific-calculator swayam614/scientific-calculator:latest
