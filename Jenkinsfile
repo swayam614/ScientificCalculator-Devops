@@ -60,34 +60,27 @@ pipeline {
     }
 
     post {
-        always {
-            script {
-                def testAction = currentBuild.rawBuild.getAction(hudson.tasks.junit.TestResultAction)
-                def total = testAction?.totalCount ?: 0
-                def failed = testAction?.failCount ?: 0
-                def passed = total - failed
-
-                emailext(
-                    to: "swayampalrecha6@gmail.com",
-                    subject: "${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
+    always {
+        emailext(
+            to: "swayampalrecha6@gmail.com",
+            subject: "${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
 Build Status: ${currentBuild.currentResult}
 
 Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 
-🧪 Test Results:
-Total: ${total}
-Passed: ${passed}
-Failed: ${failed}
+🧪 Test Report:
+See detailed report in Jenkins:
+${env.BUILD_URL}testReport
 
 Docker Image: ${DOCKER_IMAGE}:${DOCKER_TAG}
 Deployment: Ansible
 """,
-                    attachLog: true
-                )
-            }
-        }
+            attachLog: true,
+            attachmentsPattern: 'target/surefire-reports/*.xml'
+        )
     }
+}
 }
