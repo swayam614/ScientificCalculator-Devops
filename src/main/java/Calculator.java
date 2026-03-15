@@ -45,8 +45,7 @@ public class Calculator {
         } catch (IOException e) {
             System.out.println("Log file error.");
         }
-        // this is just for testing
-        // this is just for new testing
+
 
         while (true) {
             System.out.println("\nScientific Calculator");
